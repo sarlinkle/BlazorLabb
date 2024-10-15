@@ -1,0 +1,69 @@
+﻿@page "/newuser"
+@rendermode InteractiveServer
+
+<PageTitle>New User</PageTitle>
+
+<h3>NewUser</h3>
+
+Text-inputs där vi fyller i användar-data (samma typ av data som används för sida 3)
+	- Följande användardata ska representeras av minst 3 klasser
+		-  id, name, email, adress (bestående av street, city, zipcode), company (name & catchphrase)
+en knapp som 'sparar användar data' (ingen data behöver dock sparas…)
+	-  när vi trycker på spara-knappen så döljs formuläret och istället visas det användaren fyllt i
+	- Exempelvis: "Du har sparat följande användare: Namn: ifyllt_namn, Email: ifylld_email" osv…
+
+<div>
+	<input @bind=user.ID />
+	<p>ID</p>
+
+	<input @bind=user.Name />
+	<p>Name</p>
+
+	<input @bind=user.Email />
+	<p>Email</p>
+
+	<p>Address:</p>
+	<input @bind=user.Street />
+	<p>Street</p>
+	<input @bind=user.City />
+	<p>City</p>
+	<input @bind=user.ZipCode/>
+	<p>Zip code</p>
+
+	<input />
+	<p>Company</p>
+	<input />
+	<p>Catch phrase</p>
+</div>
+
+<button @onclick=SaveData>Save</button>
+<p>@message</p>
+
+@code {
+
+	private string message;
+
+	User user = new User();
+
+	void SaveData()
+	{
+		message = "Data was saved successfully";
+	}
+	public class User()
+	{
+		public string ID { get; set; }
+		public string Name { get; set; }
+		public string Email { get; set; }
+		public string Street { get; set; }
+		public string City { get; set; }
+		public string ZipCode { get; set; }
+		public string Company { get; set; }
+		public string CatchPhrase { get; set; }
+
+		public User()
+		{
+			
+		}
+	}
+}
+
