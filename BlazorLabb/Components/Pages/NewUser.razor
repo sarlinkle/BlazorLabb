@@ -3,67 +3,132 @@
 
 <PageTitle>New User</PageTitle>
 
-<h3>NewUser</h3>
+<h3>New User</h3>
 
-Text-inputs där vi fyller i användar-data (samma typ av data som används för sida 3)
-	- Följande användardata ska representeras av minst 3 klasser
-		-  id, name, email, adress (bestående av street, city, zipcode), company (name & catchphrase)
-en knapp som 'sparar användar data' (ingen data behöver dock sparas…)
-	-  när vi trycker på spara-knappen så döljs formuläret och istället visas det användaren fyllt i
-	- Exempelvis: "Du har sparat följande användare: Namn: ifyllt_namn, Email: ifylld_email" osv…
 
-<div>
-	<input @bind=user.ID />
-	<p>ID</p>
+<EditForm Model="newUser" OnValidSubmit="@HandleFormSubmission" Enhance>
+	<DataAnnotationsValidator />
+	<ValidationSummary></ValidationSummary>
+	<label for="ID">ID</label>
+	<InputText id="ID" @bind-Value="@newUser.ID"></InputText>
 
-	<input @bind=user.Name />
-	<p>Name</p>
+	<br />
 
-	<input @bind=user.Email />
-	<p>Email</p>
+	<label for="Name">Name</label>
+	<InputText id="Name" @bind-Value="@newUser.Name"></InputText>
 
+	<br />
+
+	<label for="Email">Email</label>
+	<InputText id="Email" type="email" @bind-Value="@newUser.Email"></InputText>
+
+	<br />
+	
 	<p>Address:</p>
-	<input @bind=user.Street />
-	<p>Street</p>
-	<input @bind=user.City />
-	<p>City</p>
-	<input @bind=user.ZipCode/>
-	<p>Zip code</p>
+	
+	<br />
 
-	<input />
+	<label for="Street">Street</label>
+	<InputText id="Street"></InputText>
+
+	<br />
+
+	<label for="City">City</label>
+	<InputText id="City"></InputText>
+
+	<br />
+
+	<label for="ZipCode">Zip Code</label>
+	<InputText id="ZipCode"></InputText>
+
+	<br />
+
+	<label for="Street">Street</label>
+	<InputText id="Street"></InputText>
+
+	<br />
+
 	<p>Company</p>
-	<input />
-	<p>Catch phrase</p>
-</div>
 
-<button @onclick=SaveData>Save</button>
+	<br />
+
+	<label for="CompanyName">Company Name</label>
+	<InputText id="CompanyName"></InputText>
+
+	<br />
+
+	<label for="CatchPhrase">Catch Phrase</label>
+	<InputText id="CatchPhrase"></InputText>
+
+	<br />
+
+	<button type="submit">Save</button>
+ 
+</EditForm>
+
+
 <p>@message</p>
 
-@code {
+@code{
 
-	private string message;
+	/*
+	Text-inputs där vi fyller i användar-data (samma typ av data som används för sida 3)
+	- Följande användardata ska representeras av minst 3 klasser
+	-  id, name, email, adress(bestående av street, city, zipcode), company(name & catchphrase)
+	en knapp som 'sparar användar data' (ingen data behöver dock sparas…)
+		-  när vi trycker på spara-knappen så döljs formuläret och istället visas det användaren fyllt i
+		- Exempelvis: "Du har sparat följande användare: Namn: ifyllt_namn, Email: ifylld_email" osv…
+	*/
 
-	User user = new User();
+	string message;
 
-	void SaveData()
+	NewUser newUser = new NewUser();
+
+	public void InitializeValues()
 	{
-		message = "Data was saved successfully";
+		//Blazor låter mig inte använda private
+		//string _id = string.Empty;
+		//string _name = string.Empty;
+		//string _email = string.Empty;
+		//string _street = string.Empty;
+		//string _city = string.Empty;
+		//string _zipCode = string.Empty;
+		//string _company = string.Empty;
+		//string _catchPhrase = string.Empty;
 	}
-	public class User()
+	public void SaveData()
 	{
-		public string ID { get; set; }
-		public string Name { get; set; }
-		public string Email { get; set; }
-		public string Street { get; set; }
-		public string City { get; set; }
-		public string ZipCode { get; set; }
-		public string Company { get; set; }
-		public string CatchPhrase { get; set; }
+		bool success = true;
 
-		public User()
+
+		if (success)
 		{
-			
+			DisplaySaveMessage();
 		}
 	}
+	public void DisplaySaveMessage()
+	{
+		_message = $"You have now saved the following information:";
+		DisplayUser(newUser);
+		InitializeValues();
+		//ClearInputFields();
+	}
+	public void ClearInputFields()
+	{
+
+	}
+
+	public static void DisplayUser(NewUser user)
+	{
+		string str = $"ID: {user.ID}, Name: {user.Name}, Email: {user.Email}\n{user.Address.DisplayAddress(user)}\n{user.Company.DisplayCompany(user)}";
+
+
+	}
+
+	public void HandleFormSubmission(EditContext editContext)
+	{
+		
+	}
+	//public void HandleValidSubmit(){}
 }
 
