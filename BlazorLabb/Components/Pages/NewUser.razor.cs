@@ -1,28 +1,32 @@
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 
 namespace BlazorLabb.Components.Pages
 {
 	public partial class NewUser
 	{
-		private string _message;
+		public string message = string.Empty;
+		public string savedUserInfo = string.Empty;
+		public bool displayForm = true;
 
-		[Parameter]
-		[Required]
-		public string ID { get; set; }
-		[Parameter]
-		[Required]
-		public string Name { get; set; }
-		[Parameter]
-		[Required]
-		public string Email { get; set; }
-		[Parameter]
-		//Gör till lista
-		public Address Address { get; set; }
-		[Parameter]
-		//Gör till lista
-		public Company Company { get; set; }
+		User newUser = new User();
 
+		public void HandleFormSubmission()
+		{
+			//SaveData();
+			//Ska kolla om det faktiskt är success
+			bool success = true;
+
+			if (success)
+			{
+				displayForm = false;
+				message = $"You have saved the following information:";
+				savedUserInfo =	$"\nID: {newUser.ID}" + 
+					$"\nName: {newUser.Name}" +
+					$"\nEmail: {newUser.Email}" +
+					$"\n{newUser.Address.DisplayAddress()}" +
+					$"\n{newUser.Company.DisplayCompany()}";
+			}
+		}
 	}
 }

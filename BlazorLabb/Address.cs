@@ -6,15 +6,21 @@ namespace BlazorLabb
     public class Address
     {
         [Parameter]
-        public string Street { get; set; }
+        public string? Street { get; set; }
         [Parameter]
-        public string City { get; set; }
+        public string? City { get; set; }
         [Parameter]
-        public string ZipCode { get; set; }
+        public string? ZipCode { get; set; }
 
-        public string DisplayAddress(NewUser user)
+        public Address()
         {
-            return $"Address:\n{user.Address.Street}\n{user.Address.ZipCode}\n{user.Address.City}";
+            Street = string.Empty;
+            City = string.Empty;
+            ZipCode = string.Empty;
+        }
+        public string DisplayAddress()
+        {
+            return $"Address:\n{Street}\n{ZipCode}\n{City}";
         }
     }
 
