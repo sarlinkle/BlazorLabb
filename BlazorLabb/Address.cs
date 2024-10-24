@@ -1,4 +1,4 @@
-﻿using BlazorLabb.Components.Pages;
+﻿using BlazorLabb;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorLabb

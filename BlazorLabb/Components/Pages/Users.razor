@@ -1,25 +1,42 @@
 ﻿@page "/users"
+@rendermode InteractiveServer
 
 <PageTitle>Users</PageTitle>
 
 
 <h3>Users</h3>
 
-
-@code {
-	/*
-	Asynkron ladding av sidan ska simuleras med Task.Delay med visst antal millisekunder
-	En placeholder ska visas medan användardata laddas
-
-	När användar-data laddats ska detta visas upp i en lista eller tabell
-	- sidan visar de första 5 användarna sorterade på förnamn (LINQ ska användas)
-	- när man trycker på knappen "visa alla" ska alla användare visas (minst 10)
-
-	Sidan kräver ett datalager:
-	- Datalagret ska ha metoden GetUsers() som returnerar användarna
-	- Följande användardata ska representeras av minst 3 klasser
-		-  id, name, email, adress (bestående av street, city, zipcode), company (name & catchphrase)
-		- Metoden ska generera minst 10 användare, där ordningen inte är sorterad
-			*/
-
+@if (_users == null)
+{
+    <p><em>Fetching users...</em></p>
 }
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Company</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in _users)
+            {
+                <tr>
+                    <td>@user.ID</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Address.Street</td>
+                    <td>@user.Address.ZipCode</td>                    
+                    <td>@user.Address.City</td>
+                    <td>@user.Company.CompanyName</td>
+                    <td>@user.Company.CatchPhrase</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations;
 
 public class User
 {
-	[Parameter]
-	[Required]
-	public string? ID { get; set; }
-	[Parameter]
-	[Required]
-	[StringLength(50, MinimumLength = 2)]
+	//[Parameter]
+	//[Required]
+	public int? ID { get; set; }
+	//[Parameter]
+	//[Required]
+	//[StringLength(50, MinimumLength = 2)]
 	public string? Name { get; set; }
-	[Parameter]
-	[Required]
+	//[Parameter]
+	//[Required]
 	public string? Email { get; set; }
-	[Parameter]
+	//[Parameter]
 	//Gör till lista
 	public Address Address { get; set; }
-	[Parameter]
+	//[Parameter]
 	//Gör till lista
 	public Company Company { get; set; }
 
@@ -25,10 +25,14 @@ public class User
 	{
 		//Address = new Address();
 		//Company = new Company();
-		ID = string.Empty;
+		ID = null;
 		Name = string.Empty;
 		Email = string.Empty;
 		Address = new Address();
 		Company = new Company();
+	}
+	public void GetUser()
+	{
+
 	}
 }

@@ -3,6 +3,7 @@
 
 <PageTitle>New User</PageTitle>
 
+
 <h3>New User</h3>
 
 @if (displayForm)
@@ -12,7 +13,7 @@
 		<ValidationSummary></ValidationSummary>
 		<label for="ID">ID</label>
 		<br />
-		<InputText id="ID" @bind-Value="newUser.ID" placeholder="ID"></InputText>
+		<InputNumber id="ID" @bind-Value="newUser.ID" placeholder="ID"></InputNumber>
 
 		<br />
 
