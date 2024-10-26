@@ -42,9 +42,9 @@
 	{
 		public static IEnumerable<User> GetAllUsers(this IEnumerable<User> users)
 		{
-			return users.GetFilteredUsers(0, users.Count());
+			return users.GetSomeUsers(0, users.Count());
 		}
-		public static IEnumerable<User> GetFilteredUsers(this IEnumerable<User> users, int startIndex, int count)
+		public static IEnumerable<User> GetSomeUsers(this IEnumerable<User> users, int startIndex, int count)
 		{
 			if (startIndex < 0 || startIndex >= users.Count())
 			{
@@ -71,15 +71,15 @@
 			return users.OrderBy(x => x.ID).ToList();
 		}
 
-		public static IEnumerable<User> GetUsersOrderedByName(this IEnumerable<User> users, string name)
+		public static IEnumerable<User> GetUsersOrderedByName(this IEnumerable<User> users)
 		{
 			return users.OrderBy(x => x.Name).ToList();
 		}
-		public static IEnumerable<User> GetUserOrderedByCompanyName(this IEnumerable<User> users, string company)
+		public static IEnumerable<User> GetUserOrderedByCompanyName(this IEnumerable<User> users)
 		{
 			return users.OrderBy(x => x.Company.CompanyName).ToList();
 		}
-		public static IEnumerable<User> GetUsersOrderedByCity(this IEnumerable<User> users, string city)
+		public static IEnumerable<User> GetUsersOrderedByCity(this IEnumerable<User> users)
 		{
 			return users.OrderBy(x => x.Address.City).ToList();
 		}

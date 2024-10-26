@@ -19,44 +19,79 @@ namespace BlazorLabb.Components.Pages
 
 		//private User[]? users;
 
-		private List<User>? _users;
+		private IEnumerable<User>? _users;
 
 		[Parameter]
-		public string? Heading {  get; set; }
+		public string? PageTitle {  get; set; }
 		[Parameter]
-		public int? UserCount { get; set; }
+		public int UserCount { get; set; }
 		[Parameter]
-		public IUserDataAccess UserDataAccess { get; set; }
+		public IUserDataAccess? UserDataAccess { get; set; }
 
 		protected override async Task OnInitializedAsync()
 		{
 			await Task.Delay(500);
-			UserDataAccess = new DummyUserDataAccess();
-			//UserDataAccess = new RandomUserDataAccess();
-			//UserDataAccess = new APIUserDataAccess();
+            //UserDataAccess = new DummyUserDataAccess();		
+			UserDataAccess ??= new RandomlyGeneratedUserData();
+            //UserDataAccess ??= new APIUserDataAccess();
 
-			//if (UserCount < 1)
-			//{
 			UserCount = 10;
-			//}
 
-			DisplaySomeUsers();
-			DisplayAllUsers();
+            if (UserCount < 1)
+            {
+                UserCount = 10;
+            }
+
+            GetSomeUsers();
 		}
 
 		protected override void OnParametersSet()
 		{
-			Heading = "Users from randomly generated data";
-			//Om users kommer från API:
-			//Heading = "Users from Json placeholder API";
+			SetPageTitle();
 		}
-		private void DisplayAllUsers()
+
+        private void SetPageTitle()
+        {
+			if (UserDataAccess?.DataSource == "DummyUsers")
+			{
+				PageTitle = "Users from dummy data";
+			}
+			else if (UserDataAccess?.DataSource == "RandomUsers")
+			{
+				PageTitle = "Randomly generated users";
+			}
+			else if (UserDataAccess?.DataSource == "APIUsers")
+			{
+				PageTitle = "Users read from API";
+			}
+			else
+			{
+				PageTitle = "Users";
+			}
+        }
+        private void GetAllUsers()
 		{
-			throw new NotImplementedException();
+			_users = UserDataAccess?.Users;
 		}
-		private void DisplaySomeUsers()
+		private void GetSomeUsers()
 		{
-			throw new NotImplementedException();
+			_users = UserDataAccess?.Users.GetSomeUsers(0, UserCount);
+		}
+		private void GetUsersOrderedByID()
+		{
+			_users = UserDataAccess?.Users.GetUsersOrderedByID();
+		}
+		private void GetUsersOrderedByName()
+		{
+			_users = UserDataAccess?.Users.GetUsersOrderedByName();
+		}
+		private void GetUsersOrderedByCompanyName()
+		{
+			_users = UserDataAccess?.Users.GetUserOrderedByCompanyName();
+		}
+		private void GetUsersOrderedByCity()
+		{
+			_users = UserDataAccess?.Users.GetUsersOrderedByCity();
 		}
 	}
 }

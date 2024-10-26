@@ -4,7 +4,8 @@
 <PageTitle>Users</PageTitle>
 
 
-<h3>Users</h3>
+<h1>@PageTitle</h1>
+
 
 @if (_users == null)
 {
@@ -12,14 +13,30 @@
 }
 else
 {
+
+    <button @onclick="GetAllUsers">Display all registered users</button>
+
+    <button @onclick="GetSomeUsers">Display selection of registered users</button>
+
+    <button @onclick="GetUsersOrderedByName">Display users ordered by name</button>
+
+    <button @onclick="GetUsersOrderedByID">Display users ordered by ID</button>
+
+    <button @onclick="GetUsersOrderedByCompanyName">Display users ordered by company name</button>
+
+    <button @onclick="GetUsersOrderedByCity">Display users ordered by city</button>
+
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Address</th>
-                <th>Company</th>
+                <th>Street</th>
+                <th>Zip Code</th>
+                <th>City</th>
+                <th>Company name</th>
+                <th>Catch phrase</th>
             </tr>
         </thead>
         <tbody>
