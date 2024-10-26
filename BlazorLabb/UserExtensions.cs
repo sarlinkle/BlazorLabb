@@ -54,19 +54,14 @@
 			{
 				throw new ArgumentOutOfRangeException(nameof(count));
 			}
-
-			//if (startIndex == 0)
-			//{
-			//	return users.Take(count).ToList();
-			//}
-			//else
-			//{
-			//	return users.Skip(startIndex).Take(count).ToList();
-			//}
-
 			return users.Take(count).ToList();
 		}
-		public static IEnumerable<User> GetUsersOrderedByID(this IEnumerable<User> users)
+		public static IEnumerable<User> GetSomeUsersOrderedByName(this IEnumerable<User> users)
+		{
+			return users.GetSomeUsers(0, 5).OrderBy(x => x.Name).ToList();
+		}
+
+        public static IEnumerable<User> GetUsersOrderedByID(this IEnumerable<User> users)
 		{
 			return users.OrderBy(x => x.ID).ToList();
 		}

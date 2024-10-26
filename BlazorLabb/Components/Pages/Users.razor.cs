@@ -35,14 +35,8 @@ namespace BlazorLabb.Components.Pages
 			UserDataAccess ??= new RandomlyGeneratedUserData();
             //UserDataAccess ??= new APIUserDataAccess();
 
-			UserCount = 10;
-
-            if (UserCount < 1)
-            {
-                UserCount = 10;
-            }
-
-            GetSomeUsers();
+			UserCount = 5;
+            GetSomeUsersOrderedByName();
 		}
 
 		protected override void OnParametersSet()
@@ -77,7 +71,11 @@ namespace BlazorLabb.Components.Pages
 		{
 			_users = UserDataAccess?.Users.GetSomeUsers(0, UserCount);
 		}
-		private void GetUsersOrderedByID()
+		private void GetSomeUsersOrderedByName()
+		{
+            _users = UserDataAccess?.Users.GetSomeUsersOrderedByName();
+        }
+        private void GetUsersOrderedByID()
 		{
 			_users = UserDataAccess?.Users.GetUsersOrderedByID();
 		}
