@@ -12,15 +12,19 @@ namespace BlazorLabb
         [Parameter]
         public string? ZipCode { get; set; }
 
+        public Address(string street, string city, string zipCode)
+        {
+            Street = street;
+            City = city;
+            ZipCode = zipCode;
+        }
         public Address()
         {
-            Street = string.Empty;
-            City = string.Empty;
-            ZipCode = string.Empty;
+            
         }
         public string DisplayAddress()
         {
-            return $"Address:\n{Street}\n{ZipCode}\n{City}";
+            return $"Address:\n{Street}\n{City}\n{ZipCode}";
         }
     }
 

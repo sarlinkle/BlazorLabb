@@ -9,12 +9,16 @@ namespace BlazorLabb
         public string? CompanyName { get; set; }
         [Parameter]
         public string? CatchPhrase { get; set; }
-        public Company()
+        public Company(string companyName, string catchPhrase)
         {
-            CompanyName = string.Empty;
-            CatchPhrase = string.Empty;
+            CompanyName = companyName;
+            CatchPhrase = catchPhrase;
         }
 
+        public Company()
+        {
+            
+        }
         public string DisplayCompany()
         {
             return $"Company: \n{CompanyName} - {CatchPhrase}";
