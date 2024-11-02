@@ -4,26 +4,35 @@ using System.ComponentModel.DataAnnotations;
 
 public class User
 {
-	[Required]
+	//[Parameter]
+	//[Required]
 	public int? ID { get; set; }
-	[Required]
-	[StringLength(50, MinimumLength = 2)]
+	//[Parameter]
+	//[Required]
+	//[StringLength(50, MinimumLength = 2)]
 	public string? Name { get; set; }
-	[Required]
+	//[Parameter]
+	//[Required]
 	public string? Email { get; set; }
-	public Address? Address { get; set; } = new Address();
-	public Company? Company { get; set; } = new Company();
+	//[Parameter]
+	//Gör till lista
+	public Address Address { get; set; }
+	//[Parameter]
+	//Gör till lista
+	public Company Company { get; set; }
 
-	public User(int id, string name, string email, Address address, Company company)
+	public User()
 	{
-		ID = id;
-		Name = name;
-		Email = email;
-		Address = address;
-		Company = company;
+		//Address = new Address();
+		//Company = new Company();
+		ID = null;
+		Name = string.Empty;
+		Email = string.Empty;
+		Address = new Address();
+		Company = new Company();
 	}
-    public User()
-    {
-        
-    }
+	public void GetUser()
+	{
+
+	}
 }
