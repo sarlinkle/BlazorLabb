@@ -10,7 +10,6 @@
 {
 	<EditForm Model="newUser" OnValidSubmit="@HandleFormSubmission">
 		<DataAnnotationsValidator />
-		<ValidationSummary></ValidationSummary>
 		<label for="ID">ID</label>
 		<br />
 		<InputNumber id="ID" @bind-Value="newUser.ID" placeholder="ID"></InputNumber>
