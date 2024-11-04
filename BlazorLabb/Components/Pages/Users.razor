@@ -6,40 +6,12 @@
 
 <h1>@PageTitle</h1>
 
-
-@*
-<QuickGrid Class="table" Items="GetAllUsers">
-    <PropertyColumn Property="user => user.ID" Sortable="true">
-        <ColumnOptions>
-            <div>
-                <input type="search" @bind="SearchText" @bind:event="oninput" autofocus />
-            </div>
-        </ColumnOptions>
-    </PropertyColumn>
-    <PropertyColumn Property="user => user.Name" Sortable="true">
-        <ColumnOptions>
-            <div>
-                <input type="search" @bind="SearchInt" @bind:event="oninput" autofocus />
-            </div>
-        </ColumnOptions>
-    </PropertyColumn>
-    <PropertyColumn Property="user => user.Email" Title="Release year" Format="yyyy" />
-    <PropertyColumn Property="user => user.Address.Street" />
-    <PropertyColumn Property="user => user.Address.City" />
-</QuickGrid>
-
-*@
-
-
-
-
 @if (_users == null)
 {
     <p><em>Fetching users...</em></p>
 }
 else
 {
-
     //Är det viktigt att det inte stannar på some users ordered by name/ID etc (nu återgår det till att visa 30 st varje gång)
 
     <button @onclick="GetAllUsers">Show all registered users</button>
@@ -94,7 +66,7 @@ else
                     <td>@user.Address.Street</td>
                     <td>@user.Address.City</td>                    
                     <td>@user.Address.ZipCode</td>
-                    <td>@user.Company.CompanyName</td>
+                    <td>@user.Company.Name</td>
                     <td>@user.Company.CatchPhrase</td>
                 </tr>
             }

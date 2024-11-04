@@ -10,7 +10,7 @@
 			{
 				if (_users == null)
 				{
-					_users = GetRandomUsers();
+					_users = GetUsers();
 				}
 				return _users;
 			}
@@ -29,7 +29,7 @@
 			DataSource = "RandomUsers";
         }
 
-		private List<User> GetRandomUsers()
+		private List<User> GetUsers()
 		{
 			int userCount = 30;
 

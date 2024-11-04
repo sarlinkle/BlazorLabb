@@ -4,14 +4,12 @@ using Microsoft.AspNetCore.Components;
 namespace BlazorLabb
 {
     public class Company
-    {
-        [Parameter]
-        public string? CompanyName { get; set; }
-        [Parameter]
+    {      
+        public string? Name { get; set; }    
         public string? CatchPhrase { get; set; }
-        public Company(string companyName, string catchPhrase)
+        public Company(string name, string catchPhrase)
         {
-            CompanyName = companyName;
+            Name = name;
             CatchPhrase = catchPhrase;
         }
 
@@ -21,7 +19,7 @@ namespace BlazorLabb
         }
         public string DisplayCompany()
         {
-            return $"Company: \n{CompanyName} - {CatchPhrase}";
+            return $"Company: \n{Name} - {CatchPhrase}";
         }
     }
 

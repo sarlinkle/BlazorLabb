@@ -1,55 +1,55 @@
 using Microsoft.AspNetCore.Components;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace BlazorLabb.Components.Pages
 {
 	public partial class Users
 	{
-		/*
-
-		När användar-data laddats ska detta visas upp i en lista eller tabell
-		- sidan visar de första 5 användarna sorterade på förnamn (LINQ ska användas)
-		- när man trycker på knappen "visa alla" ska alla användare visas (minst 10)
-
-		Sidan kräver ett datalager:
-		- Datalagret ska ha metoden GetUsers() som returnerar användarna
-		- Följande användardata ska representeras av minst 3 klasser
-			-  id, name, email, adress (bestående av street, city, zipcode), company (name & catchphrase)
-			- Metoden ska generera minst 10 användare, där ordningen inte är sorterad
-				*/
-
-		//private User[]? users;
-
-		private IEnumerable<User>? _users;
-
+		private IEnumerable<User>? _users;		
 		public string? PageTitle;
 		public int UserCount { get; set; }
-        //public string? DataSource { get; set; }
-
 		public IUserDataAccess? UserDataAccess { get; set; }
 		public string SearchText = "";
+        public static HttpClient httpClient = new HttpClient();
 
         protected override async Task OnInitializedAsync()
 		{
 			await Task.Delay(500);
 
-			//UserDataAccess = new DummyUserDataAccess();
-			//PageTitle = SetPageTitle();
-			//UserCount = 3;
-			//GetAllUsers();
+			////UserDataAccess = new DummyUserDataAccess();
+			////PageTitle = SetPageTitle();
+			////UserCount = 3;
+			////GetAllUsers();
 
 			UserCount = 10;
 
-			//UserDataAccess = new RandomlyGeneratedUserDataAccess();
-			//PageTitle = SetPageTitle();
-			//GetSomeUsersOrderedByName();
-
-			UserDataAccess = new APIUserDataAccess();
+			UserDataAccess = new RandomlyGeneratedUserDataAccess();
 			PageTitle = SetPageTitle();
 			GetSomeUsersOrderedByName();
+
+			//UserDataAccess = new APIUserDataAccess();
+			//PageTitle = SetPageTitle();
+			//GetSomeUsersOrderedByName();
 			//_users = await UserDataAccess.GetUsers();
+			///
+			//var users = await FetchUsers();
+			//foreach (var user in users)
+			//{
+			//	Console.WriteLine(user);
+			//}
 		}
 
-		protected override void OnParametersSet()
+		private static async Task<List<User>> FetchUsers()
+        {
+            var response = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/users");
+            var users = JsonSerializer.Deserialize<List<User>>(response);
+            return users;
+        }
+
+        protected override void OnParametersSet()
 		{
 			PageTitle = SetPageTitle();
 		}
@@ -64,10 +64,10 @@ namespace BlazorLabb.Components.Pages
 			{
 				return "Randomly generated users";
 			}
-			//else if (APIUserDataAccess.UserDataAccess.DataSource == "APIUsers")
-			//{
-			//	return "Users read from API";
-			//}
+			else if (UserDataAccess.DataSource == "APIUsers")
+			{
+				return "Users read from API";
+			}
 			else
 			{
 				return "APIUsers";
