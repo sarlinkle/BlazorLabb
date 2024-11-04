@@ -1,4 +1,7 @@
-﻿namespace BlazorLabb
+﻿
+using System.Diagnostics;
+
+namespace BlazorLabb
 {
     public class DummyUserDataAccess : IUserDataAccess
 	{
@@ -64,6 +67,12 @@
 				)
 			)
 		};
+
+        public async Task LoadUsersAsync()
+        {
+            //Does nothing
+            await Task.Run(() => Debug.WriteLine("Users loaded but doesn't really load users"));
+        }
     }
     }
 

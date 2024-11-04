@@ -1,0 +1,59 @@
+﻿@* @page "/apiusers"
+@rendermode InteractiveServer
+
+<h3>MarsWeatherData</h3>
+
+<button @onclick="FetchLatestWeatherData">See latest weather data</button>
+
+
+@if (forecast != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Martian day start date</th>
+                <th>Martian ay end date</th>
+                <th>Average temperature</th>
+                <th>Wind speed</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>@forecast.ID</td>
+                    <td>@forecast.Name</td>
+                    <td>@forecast.Email</td>
+                    <td>@user.Address.Street</td>
+                    <td>@user.Address.City</td>
+                    <td>@user.Address.ZipCode</td>
+                    <td>@user.Company.Name</td>
+                    <td>@user.Company.CatchPhrase</td>
+                </tr>
+            
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    public Forecast forecast = new Forecast();
+
+    public HttpClient httpClient = new HttpClient();
+
+    public async Task FetchLatestWeatherData()
+    {
+        forecast = await httpClient.GetFromJsonAsync<Forecast>("https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0/1");
+    }
+
+    public class Forecast
+    {
+        public AtmosphericTemperature AtmosphericTemperature 
+        public string Season { get; set; }
+    }
+
+    public class AtmosphericTemperature
+    {
+        
+    }
+} *@

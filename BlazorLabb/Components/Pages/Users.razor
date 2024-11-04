@@ -14,23 +14,23 @@ else
 {
     //Är det viktigt att det inte stannar på some users ordered by name/ID etc (nu återgår det till att visa 30 st varje gång)
 
-    <button @onclick="GetAllUsers">Show all registered users</button>
+    <button @onclick="DisplayAllUsers">Show all registered users</button>
 
-    <button @onclick="GetSomeUsers">Show selection of registered users</button>
+    <button @onclick="DisplaySomeUsers">Show selection of registered users</button>
 
-    <button @onclick="GetUsersOrderedByName">Order by name</button>
+    <button @onclick="DisplayUsersOrderedByName">Order by name</button>
 
-    <button @onclick="GetUsersOrderedByID">Order by ID</button>
+    <button @onclick="DisplayUsersOrderedByID">Order by ID</button>
 
-    <button @onclick="GetUsersOrderedByCompanyName">Order by company name</button>
+    <button @onclick="DisplayUsersOrderedByCompanyName">Order by company name</button>
 
-    <button @onclick="GetUsersOrderedByCity">Order by city</button>
+    <button @onclick="DisplayUsersOrderedByCity">Order by city</button>
 
     <input @bind-value="SearchText" @bind-value:event="oninput" placeholder="Search user name"/>
 
     @if (SearchText != String.Empty)
     {
-        GetUserNameFilteredBySearch(SearchText);
+        DisplayUserNameFilteredBySearch(SearchText);
     } 
 
 

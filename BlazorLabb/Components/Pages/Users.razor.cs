@@ -19,21 +19,17 @@ namespace BlazorLabb.Components.Pages
 		{
 			await Task.Delay(800);
 
-			////UserDataAccess = new DummyUserDataAccess();
-			////PageTitle = SetPageTitle();
-			////UserCount = 3;
+			//UserCount = 3;
 			////GetAllUsers();
 
 			UserCount = 10;
 
-			//UserDataAccess = new RandomlyGeneratedUserDataAccess();
-			//PageTitle = SetPageTitle();
-			//GetSomeUsersOrderedByName();
 
-			UserDataAccess = new APIUserDataAccess();
-			PageTitle = SetPageTitle();
-			await GetAPIUsersAsync();
-		}
+			UserDataAccess = UserDataAccessCreator.Create(DataSource.API);
+			await UserDataAccess.LoadUsersAsync();
+            DisplaySomeUsersOrderedByName();
+            //await GetSomeAPIUsersAsync();
+        }
 
         protected override void OnParametersSet()
 		{
@@ -42,67 +38,53 @@ namespace BlazorLabb.Components.Pages
 
         public string SetPageTitle()
         {
-			if (UserDataAccess.DataSource == "DummyUsers")
-			{
-				return "Users from dummy data";
-			}
-			else if (UserDataAccess.DataSource == "RandomUsers")
-			{
-				return "Randomly generated users";
-			}
-			else if (UserDataAccess.DataSource == "APIUsers")
-			{
-				return "Users read from API";
-			}
-			else
-			{
-				return "APIUsers";
-			}
+            return UserDataAccess?.DataSource switch
+            {
+                "DummyUsers" => "Users from dummy data",
+                "RandomUsers" => "Randomly generated users",
+                "APIUsers" => "Users read from API",
+                _ => "APIUsers",
+            };
         }
-
-        public async Task GetAPIUsersAsync()
-        {
-            _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
-        }
-        private void GetAllUsers()
+		private void DisplayAllUsers()
 		{
 			_users = UserDataAccess?.Users;
 		}
-		private void GetSomeUsers()
+		private void DisplaySomeUsers()
 		{
 			_users = UserDataAccess?.Users.GetSomeUsers(0, UserCount);
 		}
-		private void GetSomeUsersOrderedByName()
+		private void DisplaySomeUsersOrderedByName()
 		{
             _users = UserDataAccess?.Users.GetSomeUsersOrderedByName();
         }
-        private void GetUsersOrderedByID()
+        private void DisplayUsersOrderedByID()
 		{
             //Gör så att det blir stigande/fallande varannan gång
             _users = UserDataAccess?.Users.GetUsersOrderedByID();
 		}
-		private void GetUsersOrderedByName()
+		private void DisplayUsersOrderedByName()
 		{
 			
             //Gör så att det blir stigande/fallande varannan gång
             _users = UserDataAccess?.Users.GetUsersOrderedByName();		
 		}
-		private void GetUsersOrderedByCompanyName()
+		private void DisplayUsersOrderedByCompanyName()
 		{
 			_users = UserDataAccess?.Users.GetUserOrderedByCompanyName();
 		}
-		private void GetUsersOrderedByCity()
+		private void DisplayUsersOrderedByCity()
 		{
 			_users = UserDataAccess?.Users.GetUsersOrderedByCity();
 		}
-		private void GetUserNameFilteredBySearch(string searchText)
+		private void DisplayUserNameFilteredBySearch(string searchText)
 		{
 			_users = UserDataAccess?.Users.GetUserNameFilteredBySearch(searchText);
         }
 
 		//Make a method searching numbers instead of strings
 
-		private void GetUsersFilteredBySearchInt(string searchText)
+		private void DisplayUsersFilteredBySearchInt(string searchText)
 		{
 			_users = UserDataAccess?.Users.GetUserIDFilteredBySearch(searchText);
 		}

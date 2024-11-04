@@ -2,23 +2,37 @@
 {
 	public static class UserExtensions
 	{
-		public static IEnumerable<User> GetAllUsers(this IEnumerable<User> users)
+		public static List<User> GetAllUsers(this IEnumerable<User> users)
 		{
 				return users.GetSomeUsers(0, users.Count());
 		}
-		public static IEnumerable<User> GetSomeUsers(this IEnumerable<User> users, int startIndex, int count)
+		public static List<User> GetSomeUsers(this IEnumerable<User> users, int startIndex, int count)
 		{
-			if (startIndex < 0 || startIndex >= users.Count())
-			{
-				throw new ArgumentOutOfRangeException(nameof(startIndex));
-			}
-			if (count < 0 || startIndex + count > users.Count())
-			{
-				throw new ArgumentOutOfRangeException(nameof(count));
-			}
-			return users.Take(count).ToList();
+			//if (startIndex < 0 || startIndex >= users.Count())
+			//{
+			//	throw new ArgumentOutOfRangeException(nameof(startIndex));
+			//}
+			//if (count < 0 || startIndex + count > users.Count())
+			//{
+			//	throw new ArgumentOutOfRangeException(nameof(count));
+			//}
+			return users.Take(5).ToList();
         }
-        public static IEnumerable<User> GetSomeUsersOrderedByName(this IEnumerable<User> users)
+		public static async Task<IEnumerable<User>> GetSomeUsersAsync(this IEnumerable<User> users, int startIndex, int count)
+		{
+            if (startIndex < 0 || startIndex >= users.Count())
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+            if (count < 0 || startIndex + count > users.Count())
+            {
+                throw new ArgumentOutOfRangeException(nameof(count));
+            }
+            return users.Take(count).ToList();
+            //users = GetSomeUsers(startIndex, count);
+            //return users;
+        }
+        public static List<User> GetSomeUsersOrderedByName(this IEnumerable<User> users)
         {
             return users.GetSomeUsers(0, 5).OrderBy(x => x.Name).ToList();
 

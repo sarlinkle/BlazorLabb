@@ -1,4 +1,7 @@
-﻿namespace BlazorLabb
+﻿
+using System.Diagnostics;
+
+namespace BlazorLabb
 {
     public class RandomlyGeneratedUserDataAccess : IUserDataAccess
 	{
@@ -47,13 +50,19 @@
                 ),
 				new Company
 				(
-					_companyNames[Random.Shared.Next(_companyNames.Length)],
-					_companyCatchPhrases[Random.Shared.Next(_companyCatchPhrases.Length)]
-				)
+                    _companyNames[Random.Shared.Next(_companyNames.Length)],
+                    _companyCatchPhrases[Random.Shared.Next(_companyCatchPhrases.Length)]
+                )
             )).ToList();
-		}
-	}
+        }
+
+        public async Task LoadUsersAsync()
+        {
+			//Does nothing
+			await Task.Run(() => Debug.WriteLine("Users loaded but doesn't really load users"));
+        }
     }
+}
 
 
 

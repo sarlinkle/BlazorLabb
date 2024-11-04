@@ -28,20 +28,10 @@ namespace BlazorLabb
             DataSource = "APIUsers";
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public async Task LoadUsersAsync()
+        {
+            _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+        }
 
         //public async Task<List<User>> FetchDataFromAllUsers()
         //{
