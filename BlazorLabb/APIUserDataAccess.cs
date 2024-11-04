@@ -7,6 +7,7 @@ namespace BlazorLabb
     {
         private List<User>? _users;
         public string DataSource { get; set; }
+
         public HttpClient httpClient = new HttpClient();
 
 
@@ -14,7 +15,6 @@ namespace BlazorLabb
         {
             get
             {
-                //_users ??= GetUsers();
                 _users ??= new List<User>();
                 return _users;
             }
@@ -27,12 +27,28 @@ namespace BlazorLabb
         {
             DataSource = "APIUsers";
         }
-        public async Task<List<User>> FetchDataFromAllUsers()
-        {
-            _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
-            return _users;
 
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public async Task<List<User>> FetchDataFromAllUsers()
+        //{
+        //    _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+        //    return _users;
+
+        //}
 
 
 

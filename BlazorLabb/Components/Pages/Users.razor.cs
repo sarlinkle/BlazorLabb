@@ -17,7 +17,7 @@ namespace BlazorLabb.Components.Pages
 
         protected override async Task OnInitializedAsync()
 		{
-			await Task.Delay(500);
+			await Task.Delay(800);
 
 			////UserDataAccess = new DummyUserDataAccess();
 			////PageTitle = SetPageTitle();
@@ -26,28 +26,14 @@ namespace BlazorLabb.Components.Pages
 
 			UserCount = 10;
 
-			UserDataAccess = new RandomlyGeneratedUserDataAccess();
-			PageTitle = SetPageTitle();
-			GetSomeUsersOrderedByName();
-
-			//UserDataAccess = new APIUserDataAccess();
+			//UserDataAccess = new RandomlyGeneratedUserDataAccess();
 			//PageTitle = SetPageTitle();
 			//GetSomeUsersOrderedByName();
-			//_users = await UserDataAccess.GetUsers();
-			///
-			//var users = await FetchUsers();
-			//foreach (var user in users)
-			//{
-			//	Console.WriteLine(user);
-			//}
-		}
 
-		private static async Task<List<User>> FetchUsers()
-        {
-            var response = await httpClient.GetStringAsync("https://jsonplaceholder.typicode.com/users");
-            var users = JsonSerializer.Deserialize<List<User>>(response);
-            return users;
-        }
+			UserDataAccess = new APIUserDataAccess();
+			PageTitle = SetPageTitle();
+			await GetAPIUsersAsync();
+		}
 
         protected override void OnParametersSet()
 		{
@@ -73,11 +59,11 @@ namespace BlazorLabb.Components.Pages
 				return "APIUsers";
 			}
         }
-   //     private IEnumerable<User> GetAllUsersForGrid()
-   //     {
-			//return _users.GetSomeUsers(0, _users.Count()); 
-   //     }
 
+        public async Task GetAPIUsersAsync()
+        {
+            _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+        }
         private void GetAllUsers()
 		{
 			_users = UserDataAccess?.Users;
