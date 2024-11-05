@@ -7,11 +7,13 @@ namespace BlazorLabb
 	public class User
 	{
 		[Required]
+		[RegularExpression("^(0|[1-9][0-9]*)$")]
 		public int? ID { get; set; }
 		[Required]
 		[StringLength(50, MinimumLength = 2)]
 		public string? Name { get; set; }
 		[Required]
+		[EmailAddress]
 		public string? Email { get; set; }
 		public Address? Address { get; set; } = new Address();
 		public Company? Company { get; set; } = new Company();

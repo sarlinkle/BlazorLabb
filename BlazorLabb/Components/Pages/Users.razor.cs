@@ -11,7 +11,7 @@ namespace BlazorLabb.Components.Pages
 	{
 		private IEnumerable<User>? _users;		
 		public string? PageTitle;
-		public bool IsClicked { get; set; } = false;
+		public bool IsClicked { get; set; } = true;
 		public int UserCount { get; set; }
 		public IUserDataAccess? UserDataAccess { get; set; }
 		public string SearchText = "";
