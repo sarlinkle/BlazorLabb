@@ -8,9 +8,10 @@ namespace BlazorLabb
 
         public string DataSource { get; set; }
 
-        public DummyUserDataAccess()
+        public DummyUserDataAccess(int userCount)
 		{
 			DataSource = "DummyUsers";
+			userCount = 3;
 		}
 
 		public List<User> Users => new List<User>
@@ -74,7 +75,7 @@ namespace BlazorLabb
             await Task.Run(() => Debug.WriteLine("Users loaded but doesn't really load users"));
         }
     }
-    }
+}
 
 
 

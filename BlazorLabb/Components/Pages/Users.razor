@@ -12,11 +12,9 @@
 }
 else
 {
-    //Är det viktigt att det inte stannar på some users ordered by name/ID etc (nu återgår det till att visa 30 st varje gång)
-
     <button @onclick="DisplayAllUsers">Show all registered users</button>
 
-    <button @onclick="DisplaySomeUsers">Show selection of registered users</button>
+    <button @onclick="DisplayFirstFiveUsersOrderedByName">Show selection of registered users</button>
 
     <button @onclick="DisplayUsersOrderedByName">Order by name</button>
 
@@ -32,16 +30,6 @@ else
     {
         DisplayUserNameFilteredBySearch(SearchText);
     } 
-
-
-    @*
-    <input @bind-value="SearchText" @bind-value:event="oninput" placeholder="Search ID-number" />
-    @if (SearchText != String.Empty)
-    {
-        GetUsersFilteredBySearchInt(SearchText);
-    }*@
-
-
 
     <table class="table">
         <thead>

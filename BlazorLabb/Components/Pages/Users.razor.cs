@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using static System.Net.WebRequestMethods;
@@ -10,25 +11,17 @@ namespace BlazorLabb.Components.Pages
 	{
 		private IEnumerable<User>? _users;		
 		public string? PageTitle;
+		public bool IsClicked { get; set; } = false;
 		public int UserCount { get; set; }
 		public IUserDataAccess? UserDataAccess { get; set; }
 		public string SearchText = "";
-        public static HttpClient httpClient = new HttpClient();
 
         protected override async Task OnInitializedAsync()
 		{
 			await Task.Delay(800);
-
-			//UserCount = 3;
-			////GetAllUsers();
-
-			UserCount = 10;
-
-
-			UserDataAccess = UserDataAccessCreator.Create(DataSource.API);
+			UserDataAccess = UserDataAccessCreator.Create(DataSource.API, 10);
 			await UserDataAccess.LoadUsersAsync();
-            DisplaySomeUsersOrderedByName();
-            //await GetSomeAPIUsersAsync();
+            DisplayFirstFiveUsersOrderedByName();
         }
 
         protected override void OnParametersSet()
@@ -50,49 +43,34 @@ namespace BlazorLabb.Components.Pages
 		{
 			_users = UserDataAccess?.Users;
 		}
-		private void DisplaySomeUsers()
+		private void DisplayFirstFiveUsersOrderedByName()
 		{
-			_users = UserDataAccess?.Users.GetSomeUsers(0, UserCount);
-		}
-		private void DisplaySomeUsersOrderedByName()
-		{
-            _users = UserDataAccess?.Users.GetSomeUsersOrderedByName();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetSomeUsersOrderedByName(IsClicked);
         }
         private void DisplayUsersOrderedByID()
 		{
-            //Gör så att det blir stigande/fallande varannan gång
-            _users = UserDataAccess?.Users.GetUsersOrderedByID();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUsersOrderedByID(IsClicked);
 		}
 		private void DisplayUsersOrderedByName()
 		{
-			
-            //Gör så att det blir stigande/fallande varannan gång
-            _users = UserDataAccess?.Users.GetUsersOrderedByName();		
+			IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUsersOrderedByName(IsClicked);		
 		}
 		private void DisplayUsersOrderedByCompanyName()
 		{
-			_users = UserDataAccess?.Users.GetUserOrderedByCompanyName();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUserOrderedByCompanyName(IsClicked);
 		}
 		private void DisplayUsersOrderedByCity()
 		{
-			_users = UserDataAccess?.Users.GetUsersOrderedByCity();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUsersOrderedByCity(IsClicked);
 		}
 		private void DisplayUserNameFilteredBySearch(string searchText)
 		{
 			_users = UserDataAccess?.Users.GetUserNameFilteredBySearch(searchText);
-        }
-
-		//Make a method searching numbers instead of strings
-
-		private void DisplayUsersFilteredBySearchInt(string searchText)
-		{
-			_users = UserDataAccess?.Users.GetUserIDFilteredBySearch(searchText);
-		}
-        private int SetStateToDecideAscendingOrDescendingOrder(int state)
-        {
-            if (state == 0) { state++; }
-            else { state--; }
-            return state;
         }
     }
 }

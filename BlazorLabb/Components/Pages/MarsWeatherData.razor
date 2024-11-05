@@ -1,4 +1,4 @@
-﻿@* @page "/apiusers"
+﻿@page "/marsweather"
 @rendermode InteractiveServer
 
 <h3>MarsWeatherData</h3>
@@ -12,22 +12,18 @@
         <thead>
             <tr>
                 <th>Martian day start date</th>
-                <th>Martian ay end date</th>
+                <th>Martian day end date</th>
                 <th>Average temperature</th>
-                <th>Wind speed</th>
+                <th>Average Wind speed</th>
             </tr>
         </thead>
         <tbody>
 
                 <tr>
-                    <td>@forecast.ID</td>
-                    <td>@forecast.Name</td>
-                    <td>@forecast.Email</td>
-                    <td>@user.Address.Street</td>
-                    <td>@user.Address.City</td>
-                    <td>@user.Address.ZipCode</td>
-                    <td>@user.Company.Name</td>
-                    <td>@user.Company.CatchPhrase</td>
+                    <td>@forecast.First_UTC</td>
+                    <td>@forecast.Last_UCT</td>
+                    <td>@forecast.AtmosphericTemperature.AV</td>
+                    <td>@forecast.HorizontalWindSpeed.AV</td>
                 </tr>
             
         </tbody>
@@ -48,12 +44,22 @@
 
     public class Forecast
     {
-        public AtmosphericTemperature AtmosphericTemperature 
-        public string Season { get; set; }
+        public DateOnly First_UTC { get; set; }
+        public DateOnly Last_UCT { get; set; }
+        public AT AtmosphericTemperature { get; set; } = new AT();
+        public HWS HorizontalWindSpeed { get; set; } = new HWS();
     }
 
-    public class AtmosphericTemperature
+    public class AT
     {
-        
+        public double AV { get; set;}
+        public double MN {get; set; }
+        public double MX { get; set; }
     }
-} *@
+    public class HWS
+    {
+        public double AV { get; set; }
+        public double MN { get; set; }
+        public double MX { get; set; }
+    }
+} 

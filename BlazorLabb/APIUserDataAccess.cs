@@ -1,4 +1,5 @@
 ﻿using BlazorLabb.Components.Pages;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace BlazorLabb
@@ -7,9 +8,6 @@ namespace BlazorLabb
     {
         private List<User>? _users;
         public string DataSource { get; set; }
-
-        public HttpClient httpClient = new HttpClient();
-
 
         public List<User> Users
         {
@@ -23,59 +21,19 @@ namespace BlazorLabb
                 _users = value;
             }
         }
-        public APIUserDataAccess()
+        public APIUserDataAccess(int userCount)
         {
             DataSource = "APIUsers";
+            userCount = 10;
         }
 
         public async Task LoadUsersAsync()
         {
-            _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+            using (var httpClient = new HttpClient())
+            {
+                _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+            }
         }
-
-        //public async Task<List<User>> FetchDataFromAllUsers()
-        //{
-        //    _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
-        //    return _users;
-
-        //}
-
-
-
-        //public async Task<string?> GetAPIResponseStringAsync()
-        //{
-        //    using var client = new HttpClient();
-        //    return await client.GetStringAsync("https://jsonplaceholder.typicode.com/users");
-        //}
-        //public List<User>? DeserializeJson(string json)
-        //{
-        //    List<User>? deserializedJson = JsonSerializer.Deserialize<List<User>>(json);
-        //    return deserializedJson;
-        //}
-
-        //public User? DeserializeFirstUserJson(string json)
-        //{
-        //    User? deserializedJson = JsonSerializer.Deserialize<User>(json);
-        //    return deserializedJson;
-        //}
-        //public async Task<List<User>?> GetUsers()
-        //{
-        //    var result = await GetAPIResponseStringAsync();
-        //    if (result != null)
-        //    {
-        //        var users = DeserializeJson(result);
-
-        //        if (users == null)
-        //        {
-        //            throw new Exception("Deserialization failed");
-        //        }
-        //        return users;
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("No response from API");
-        //    }
-        //}
     }
 }
 
