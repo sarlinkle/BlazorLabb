@@ -11,33 +11,33 @@ namespace BlazorLabb.Tests
     [TestClass()]
     public class APIUserDataAccessTests
     {
-        [TestMethod()]
-        public void DeserializeJsonTest()
-        {
-            //Arrange
-            string json = JsonData.GetJsonUsers();
-            var userDataAccess = new APIUserDataAccess();
+        //[TestMethod()]
+        //public void DeserializeJsonTest()
+        //{
+        //    //Arrange
+        //    string json = JsonData.GetJsonUsers();
+        //    var userDataAccess = new APIUserDataAccess();
 
-            //Act
-            List<User>? user = userDataAccess.DeserializeJson(json);
+        //    //Act
+        //    List<User>? user = userDataAccess.DeserializeJson(json);
 
-            //Assert
-            Assert.IsNotNull(user);
-        }
+        //    //Assert
+        //    Assert.IsNotNull(user);
+        //}
 
-        [TestMethod()]
-        public void DeserializeJsonTestForUser()
-        {
-            //Arrange
-            string json = JsonData.GetJsonFirstUser();
-            var userDataAccess = new APIUserDataAccess();
+        //[TestMethod()]
+        //public void DeserializeJsonTestForUser()
+        //{
+        //    //Arrange
+        //    string json = JsonData.GetJsonFirstUser();
+        //    var userDataAccess = new APIUserDataAccess();
 
-            //Act
-            User? user = userDataAccess.DeserializeFirstUserJson(json);
+        //    //Act
+        //    User? user = userDataAccess.DeserializeFirstUserJson(json);
 
-            //Assert
-            Assert.IsNotNull(user);
-        }
+        //    //Assert
+        //    Assert.IsNotNull(user);
+        //}
 
 
     }

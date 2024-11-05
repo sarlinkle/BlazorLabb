@@ -1,0 +1,65 @@
+﻿@page "/marsweather"
+@rendermode InteractiveServer
+
+<h3>MarsWeatherData</h3>
+
+<button @onclick="FetchLatestWeatherData">See latest weather data</button>
+
+
+@if (forecast != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Martian day start date</th>
+                <th>Martian day end date</th>
+                <th>Average temperature</th>
+                <th>Average Wind speed</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>@forecast.First_UTC</td>
+                    <td>@forecast.Last_UCT</td>
+                    <td>@forecast.AtmosphericTemperature.AV</td>
+                    <td>@forecast.HorizontalWindSpeed.AV</td>
+                </tr>
+            
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    public Forecast forecast = new Forecast();
+
+    public HttpClient httpClient = new HttpClient();
+
+    public async Task FetchLatestWeatherData()
+    {
+        forecast = await httpClient.GetFromJsonAsync<Forecast>("https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0/1");
+    }
+
+    public class Forecast
+    {
+        public DateOnly First_UTC { get; set; }
+        public DateOnly Last_UCT { get; set; }
+        public AT AtmosphericTemperature { get; set; } = new AT();
+        public HWS HorizontalWindSpeed { get; set; } = new HWS();
+    }
+
+    public class AT
+    {
+        public double AV { get; set;}
+        public double MN {get; set; }
+        public double MX { get; set; }
+    }
+    public class HWS
+    {
+        public double AV { get; set; }
+        public double MN { get; set; }
+        public double MX { get; set; }
+    }
+} 

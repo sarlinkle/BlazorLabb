@@ -13,6 +13,7 @@ namespace BlazorLabb
 	{
 		public List<User> Users { get; }
 		public string DataSource { get; set; }
+		public Task LoadUsersAsync();
 	}
 }
 

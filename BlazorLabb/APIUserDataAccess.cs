@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using BlazorLabb.Components.Pages;
+using System.Net.Http;
+using System.Text.Json;
 
 namespace BlazorLabb
 {
@@ -11,7 +13,6 @@ namespace BlazorLabb
         {
             get
             {
-                //_users ??= GetUsers();
                 _users ??= new List<User>();
                 return _users;
             }
@@ -20,42 +21,17 @@ namespace BlazorLabb
                 _users = value;
             }
         }
-        public APIUserDataAccess()
+        public APIUserDataAccess(int userCount)
         {
             DataSource = "APIUsers";
-        }
-        public async Task<string?> GetAPIResponseStringAsync()
-        {
-            using var client = new HttpClient();
-            return await client.GetStringAsync("https://jsonplaceholder.typicode.com/users");
-        }
-        public List<User>? DeserializeJson(string json)
-        {
-            List<User>? deserializedJson = JsonSerializer.Deserialize<List<User>>(json);
-            return deserializedJson;
+            userCount = 10;
         }
 
-        public User? DeserializeFirstUserJson(string json)
+        public async Task LoadUsersAsync()
         {
-            User? deserializedJson = JsonSerializer.Deserialize<User>(json);
-            return deserializedJson;
-        }
-        public async Task<List<User>?> GetUsers()
-        {
-            var result = await GetAPIResponseStringAsync();
-            if (result != null)
+            using (var httpClient = new HttpClient())
             {
-                var users = DeserializeJson(result);
-
-                if (users == null)
-                {
-                    throw new Exception("Deserialization failed");
-                }
-                return users;
-            }
-            else
-            {
-                throw new Exception("No response from API");
+                _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
             }
         }
     }

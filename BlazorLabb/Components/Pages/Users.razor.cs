@@ -1,130 +1,76 @@
 using Microsoft.AspNetCore.Components;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace BlazorLabb.Components.Pages
 {
 	public partial class Users
 	{
-		/*
-
-		När användar-data laddats ska detta visas upp i en lista eller tabell
-		- sidan visar de första 5 användarna sorterade på förnamn (LINQ ska användas)
-		- när man trycker på knappen "visa alla" ska alla användare visas (minst 10)
-
-		Sidan kräver ett datalager:
-		- Datalagret ska ha metoden GetUsers() som returnerar användarna
-		- Följande användardata ska representeras av minst 3 klasser
-			-  id, name, email, adress (bestående av street, city, zipcode), company (name & catchphrase)
-			- Metoden ska generera minst 10 användare, där ordningen inte är sorterad
-				*/
-
-		//private User[]? users;
-
-		private IEnumerable<User>? _users;
-
+		private IEnumerable<User>? _users;		
 		public string? PageTitle;
+		public bool IsClicked { get; set; } = false;
 		public int UserCount { get; set; }
-        //public string? DataSource { get; set; }
-
 		public IUserDataAccess? UserDataAccess { get; set; }
 		public string SearchText = "";
 
         protected override async Task OnInitializedAsync()
 		{
-			await Task.Delay(500);
+			await Task.Delay(800);
+			UserDataAccess = UserDataAccessCreator.Create(DataSource.API, 10);
+			await UserDataAccess.LoadUsersAsync();
+            DisplayFirstFiveUsersOrderedByName();
+        }
 
-			//UserDataAccess = new DummyUserDataAccess();
-			//PageTitle = SetPageTitle();
-			//UserCount = 3;
-			//GetAllUsers();
-
-			UserCount = 10;
-
-			//UserDataAccess = new RandomlyGeneratedUserDataAccess();
-			//PageTitle = SetPageTitle();
-			//GetSomeUsersOrderedByName();
-
-			UserDataAccess = new APIUserDataAccess();
-			PageTitle = SetPageTitle();
-			GetSomeUsersOrderedByName();
-			//_users = await UserDataAccess.GetUsers();
-		}
-
-		protected override void OnParametersSet()
+        protected override void OnParametersSet()
 		{
 			PageTitle = SetPageTitle();
 		}
 
         public string SetPageTitle()
         {
-			if (UserDataAccess.DataSource == "DummyUsers")
-			{
-				return "Users from dummy data";
-			}
-			else if (UserDataAccess.DataSource == "RandomUsers")
-			{
-				return "Randomly generated users";
-			}
-			//else if (APIUserDataAccess.UserDataAccess.DataSource == "APIUsers")
-			//{
-			//	return "Users read from API";
-			//}
-			else
-			{
-				return "APIUsers";
-			}
+            return UserDataAccess?.DataSource switch
+            {
+                "DummyUsers" => "Users from dummy data",
+                "RandomUsers" => "Randomly generated users",
+                "APIUsers" => "Users read from API",
+                _ => "APIUsers",
+            };
         }
-   //     private IEnumerable<User> GetAllUsersForGrid()
-   //     {
-			//return _users.GetSomeUsers(0, _users.Count()); 
-   //     }
-
-        private void GetAllUsers()
+		private void DisplayAllUsers()
 		{
 			_users = UserDataAccess?.Users;
 		}
-		private void GetSomeUsers()
+		private void DisplayFirstFiveUsersOrderedByName()
 		{
-			_users = UserDataAccess?.Users.GetSomeUsers(0, UserCount);
-		}
-		private void GetSomeUsersOrderedByName()
-		{
-            _users = UserDataAccess?.Users.GetSomeUsersOrderedByName();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetSomeUsersOrderedByName(IsClicked);
         }
-        private void GetUsersOrderedByID()
+        private void DisplayUsersOrderedByID()
 		{
-            //Gör så att det blir stigande/fallande varannan gång
-            _users = UserDataAccess?.Users.GetUsersOrderedByID();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUsersOrderedByID(IsClicked);
 		}
-		private void GetUsersOrderedByName()
+		private void DisplayUsersOrderedByName()
 		{
-			
-            //Gör så att det blir stigande/fallande varannan gång
-            _users = UserDataAccess?.Users.GetUsersOrderedByName();		
+			IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUsersOrderedByName(IsClicked);		
 		}
-		private void GetUsersOrderedByCompanyName()
+		private void DisplayUsersOrderedByCompanyName()
 		{
-			_users = UserDataAccess?.Users.GetUserOrderedByCompanyName();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUserOrderedByCompanyName(IsClicked);
 		}
-		private void GetUsersOrderedByCity()
+		private void DisplayUsersOrderedByCity()
 		{
-			_users = UserDataAccess?.Users.GetUsersOrderedByCity();
+            IsClicked = !IsClicked;
+            _users = UserDataAccess?.Users.GetUsersOrderedByCity(IsClicked);
 		}
-		private void GetUserNameFilteredBySearch(string searchText)
+		private void DisplayUserNameFilteredBySearch(string searchText)
 		{
 			_users = UserDataAccess?.Users.GetUserNameFilteredBySearch(searchText);
-        }
-
-		//Make a method searching numbers instead of strings
-
-		private void GetUsersFilteredBySearchInt(string searchText)
-		{
-			_users = UserDataAccess?.Users.GetUserIDFilteredBySearch(searchText);
-		}
-        private int SetStateToDecideAscendingOrDescendingOrder(int state)
-        {
-            if (state == 0) { state++; }
-            else { state--; }
-            return state;
         }
     }
 }
