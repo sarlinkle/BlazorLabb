@@ -15,7 +15,7 @@ namespace BlazorLabb.Tests
         public void GetSomeUsersTest()
         {
             //Arrange
-            var data = new RandomlyGeneratedUserDataAccess();
+            var data = new RandomlyGeneratedUserDataAccess(30);
             var users = data.Users;
 
             //Act

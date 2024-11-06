@@ -1,4 +1,5 @@
 ﻿using BlazorLabb.Components.Pages;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -29,9 +30,16 @@ namespace BlazorLabb
 
         public async Task LoadUsersAsync()
         {
-            using (var httpClient = new HttpClient())
+            try
             {
-                _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+                using (var httpClient = new HttpClient())
+                {
+                    _users = await httpClient.GetFromJsonAsync<List<User>>("https://jsonplaceholder.typicode.com/users");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message, "Could not load users from API");
             }
         }
     }

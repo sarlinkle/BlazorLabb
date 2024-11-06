@@ -1,15 +1,21 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 
-<PageTitle>Random Cat Image</PageTitle>	
+<PageTitle>Random Cat Image</PageTitle>
 
-	<div>
-		<img src="@catImage" width="300" />
-	</div>
-
-	<br />
-
+<div>
 	<button class="btn btn-primary" @onclick="FetchRandomCatImageAsync">Generate new cat image</button>
+	<br />
+</div>
+
+<div>
+	<br />
+	<img src="@catImage" width="300" />
+</div>
+
+<br />
+
+
 
 
 

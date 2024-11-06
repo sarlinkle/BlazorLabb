@@ -12,13 +12,14 @@ namespace BlazorLabb.Components.Pages
 		User newUser = new User();
         public void HandleFormSubmission()
 		{
-                displayForm = false;
+				displayForm = false;
 				message = $"You have saved the following information:";
 				savedUserInfo = $"\nID: {newUser.ID}" +
 					$"\nName: {newUser.Name}" +
 					$"\nEmail: {newUser.Email}" +
 					$"\n{newUser.Address.DisplayAddress()}" +
-					$"\n{newUser.Company.DisplayCompany()}";			
+					$"\n{newUser.Company.DisplayCompany()}";
+			
 		}
 	}
 }

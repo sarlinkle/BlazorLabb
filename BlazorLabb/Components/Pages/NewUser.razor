@@ -3,63 +3,40 @@
 
 <PageTitle>New User</PageTitle>
 
-
 <h3>New User</h3>
 
 @if (displayForm)
 {
 	<EditForm Model="newUser" OnValidSubmit="@HandleFormSubmission">
 		<DataAnnotationsValidator />
-		<label for="ID">ID</label>
-		<br />
-		<InputNumber id="ID" @bind-Value="newUser.ID" placeholder="ID"></InputNumber>
 
-		<br />
+		<label for="ID">ID</label><br />
+		<InputNumber id="ID" @bind-Value="newUser.ID" placeholder="ID"></InputNumber><br />
 
-		<label for="Name">Name</label>
-		<br />
-		<InputText id="Name" @bind-Value="newUser.Name" placeholder="Name"></InputText>
+		<label for="Name">Name</label><br />
+		<InputText id="Name" @bind-Value="newUser.Name" placeholder="Name"></InputText><br />
 
-		<br />
-
-		<label for="Email">Email</label>
-		<br />
-		<InputText id="Email" type="email" @bind-Value="newUser.Email" placeholder="Email"></InputText>
-
-		<br />
+		<label for="Email">Email</label><br />
+		<InputText id="Email" type="email" @bind-Value="newUser.Email" placeholder="Email"></InputText><br />
 
 		<h3>Address:</h3>
-		<label for="Street">Street</label>
-		<br />
-		<InputText id="Street" @bind-Value="newUser.Address.Street" placeholder="Street"></InputText>
 
-		<br />
+		<label for="Street">Street</label><br />
+		<InputText id="Street" @bind-Value="newUser.Address.Street" placeholder="Street"></InputText><br />
 
-		<label for="City">City</label>
-		<br />
-		<InputText id="City" @bind-Value="newUser.Address.City" placeholder="Address"></InputText>
+		<label for="City">City</label><br />
+		<InputText id="City" @bind-Value="newUser.Address.City" placeholder="Address"></InputText><br />
 
-		<br />
-
-		<label for="ZipCode">Zip Code</label>
-		<br />
-		<InputText id="ZipCode" @bind-Value="newUser.Address.ZipCode" placeholder="Zip Code"></InputText>
-
-		<br />
+		<label for="ZipCode">Zip Code</label><br />
+		<InputText id="ZipCode" @bind-Value="newUser.Address.ZipCode" placeholder="Zip Code"></InputText><br />
 
 		<h3>Company</h3>
 
-		<label for="CompanyName">Company Name</label>
-		<br />
-		<InputText id="CompanyName" @bind-Value="newUser.Company.Name" placeholder="Company Name"></InputText>
+		<label for="CompanyName">Company Name</label><br />
+		<InputText id="CompanyName" @bind-Value="newUser.Company.Name" placeholder="Company Name"></InputText><br />
 
-		<br />
-
-		<label for="CatchPhrase">Company Catch Phrase</label>
-		<br />
-		<InputText id="CatchPhrase" @bind-Value="newUser.Company.CatchPhrase" placeholder="Company Catch Phrase"></InputText>
-
-		<br />
+		<label for="CatchPhrase">Company Catch Phrase</label><br />
+		<InputText id="CatchPhrase" @bind-Value="newUser.Company.CatchPhrase" placeholder="Company Catch Phrase"></InputText><br />
 
 		<button type="submit">Save</button>
 

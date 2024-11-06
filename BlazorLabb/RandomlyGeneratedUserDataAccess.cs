@@ -37,24 +37,31 @@ namespace BlazorLabb
 
 		private List<User> GenerateUsers(int userCount)
 		{
-			return Enumerable.Range(1, userCount).Select(i => new User
-			(
-				new Random().Next(1, 1000),
-				_names[Random.Shared.Next(_names.Length)],
-                _emailAddresses[Random.Shared.Next(_emailAddresses.Length)],
-                new Address
-                (
-                    _streets[Random.Shared.Next(_streets.Length)],
-                    _cities[Random.Shared.Next(_cities.Length)],
-                    _zipCodes[Random.Shared.Next(_zipCodes.Length)]
-
-                ),
-				new Company
+			try
+			{
+				return Enumerable.Range(1, userCount).Select(i => new User
 				(
-                    _companyNames[Random.Shared.Next(_companyNames.Length)],
-                    _companyCatchPhrases[Random.Shared.Next(_companyCatchPhrases.Length)]
-                )
-            )).ToList();
+					new Random().Next(1, 1000),
+					_names[Random.Shared.Next(_names.Length)],
+					_emailAddresses[Random.Shared.Next(_emailAddresses.Length)],
+					new Address
+					(
+						_streets[Random.Shared.Next(_streets.Length)],
+						_cities[Random.Shared.Next(_cities.Length)],
+						_zipCodes[Random.Shared.Next(_zipCodes.Length)]
+
+					),
+					new Company
+					(
+						_companyNames[Random.Shared.Next(_companyNames.Length)],
+						_companyCatchPhrases[Random.Shared.Next(_companyCatchPhrases.Length)]
+					)
+				)).ToList();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Could not generate random users");
+			}
         }
 
         public async Task LoadUsersAsync()
