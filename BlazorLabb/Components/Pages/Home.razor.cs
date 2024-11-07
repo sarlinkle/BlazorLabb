@@ -5,16 +5,12 @@ namespace BlazorLabb.Components.Pages
 {
 	public partial class Home
 	{
-
 		private string? catImage;
-
-		protected override async Task OnInitializedAsync()
-		{
-			await FetchRandomCatImageAsync();
-		}
+		public bool buttonClicked = false;
 
 		public async Task FetchRandomCatImageAsync()
 		{
+			buttonClicked = true;
 			try
 			{
 				using (var httpClient = new HttpClient())
@@ -26,7 +22,7 @@ namespace BlazorLabb.Components.Pages
 			}
 			catch (Exception ex) 
 			{ 
-				Debug.WriteLine(ex.Message);
+				Debug.WriteLine($"Could not fetch image from API - {ex.Message}");
 			}
 		}
 	}

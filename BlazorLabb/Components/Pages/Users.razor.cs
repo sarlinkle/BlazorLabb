@@ -21,7 +21,7 @@ namespace BlazorLabb.Components.Pages
 			await Task.Delay(800);
 			UserDataAccess = UserDataAccessCreator.Create(DataSource.API, 10);
 			await UserDataAccess.LoadUsersAsync();
-            DisplayFirstFiveUsersOrderedByName();
+            DisplayStartListOfUsers();
         }
 
         protected override void OnParametersSet()
@@ -39,7 +39,12 @@ namespace BlazorLabb.Components.Pages
                 _ => "APIUsers",
             };
         }
-		private void DisplayAllUsers()
+
+        private void DisplayStartListOfUsers()
+        {
+            _users = UserDataAccess?.Users.GetSomeUsersOrderedByName(IsClicked);
+        }
+        private void DisplayAllUsers()
 		{
 			_users = UserDataAccess?.Users;
 		}

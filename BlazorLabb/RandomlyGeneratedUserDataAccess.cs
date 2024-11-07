@@ -60,7 +60,7 @@ namespace BlazorLabb
 			}
 			catch (Exception ex)
 			{
-				throw new Exception("Could not generate random users");
+				throw new Exception($"Could not generate random users - { ex.Message }");
 			}
         }
 

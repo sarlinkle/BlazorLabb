@@ -1,0 +1,32 @@
+﻿@* @page "/quickgridusers"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using BlazorLabb;
+@rendermode InteractiveServer
+
+<PageTitle>Quickgrid Users</PageTitle>
+
+<QuickGrid Items="@_users" Pagination="@pagination">
+    <PropertyColumn Property="@(_users => _users.ID)" Sortable="true" />
+                <ColumnOptions>
+            <div>
+                <input type="search" @bind="SearchText" @bind:event="oninput" autofocus />
+            </div>
+        </ColumnOptions>
+    <PropertyColumn Property="@(user => user.Name)" Sortable="true" />
+    <PropertyColumn Property="@(user => user.Email)" Sortable="true" />
+    <PropertyColumn Property="@(user => user.Address.Street)" Sortable="true" />
+    <PropertyColumn Property="@(user => user.Address.ZipCode)" Sortable="true" />
+    <PropertyColumn Property="@(user => user.Address.City)" Sortable="true" />
+         <ColumnOptions>
+            <div>
+                <input type="search" @bind="SearchText" @bind:event="oninput" autofocus />
+            </div>
+        </ColumnOptions>
+    <PropertyColumn Property="@(user => user.Company.Name)" Sortable="true" />
+    <PropertyColumn Property="@(user => user.Company.CatchPhrase)" Sortable="true" />
+</QuickGrid>
+
+<Paginator State="@pagination" />
+
+
+ *@

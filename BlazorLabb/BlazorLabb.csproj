@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Pages\QuickGridUsers.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Components\Pages\APIRequest.razor" />
     <Content Remove="Components\Pages\Counter.razor" />
     <Content Remove="Components\Pages\MarsWeatherData.razor" />
+    <Content Remove="Components\Pages\QuickGridUsers.razor" />
     <Content Remove="Components\Pages\Weather.razor" />
   </ItemGroup>
 

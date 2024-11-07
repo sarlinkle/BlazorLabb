@@ -3,7 +3,7 @@
 
 <PageTitle>New User</PageTitle>
 
-<h3>New User</h3>
+<h5>New User</h5>
 
 @if (displayForm)
 {
@@ -19,8 +19,6 @@
 		<label for="Email">Email</label><br />
 		<InputText id="Email" type="email" @bind-Value="newUser.Email" placeholder="Email"></InputText><br />
 
-		<h3>Address:</h3>
-
 		<label for="Street">Street</label><br />
 		<InputText id="Street" @bind-Value="newUser.Address.Street" placeholder="Street"></InputText><br />
 
@@ -30,15 +28,13 @@
 		<label for="ZipCode">Zip Code</label><br />
 		<InputText id="ZipCode" @bind-Value="newUser.Address.ZipCode" placeholder="Zip Code"></InputText><br />
 
-		<h3>Company</h3>
-
 		<label for="CompanyName">Company Name</label><br />
 		<InputText id="CompanyName" @bind-Value="newUser.Company.Name" placeholder="Company Name"></InputText><br />
 
 		<label for="CatchPhrase">Company Catch Phrase</label><br />
 		<InputText id="CatchPhrase" @bind-Value="newUser.Company.CatchPhrase" placeholder="Company Catch Phrase"></InputText><br />
 
-		<button type="submit">Save</button>
+		<button class="btn btn-dark" style="margin: 5px;"type="submit">Save</button>
 
 	</EditForm>
 }

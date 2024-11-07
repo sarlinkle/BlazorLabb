@@ -1,6 +1,5 @@
 ﻿@page "/users"
 @rendermode InteractiveServer
-@using Microsoft.AspNetCore.Components.QuickGrid
 
 <PageTitle>@PageTitle</PageTitle>
 
@@ -12,24 +11,24 @@
 }
 else
 {
-    <button @onclick="DisplayAllUsers">Show all registered users</button>
+    <button class="btn btn-dark" style="margin: 2px;" @onclick="DisplayAllUsers">Show all users</button>
 
-    <button @onclick="DisplayFirstFiveUsersOrderedByName">Show selection of registered users</button>
+    <button class="btn btn-dark" style="margin: 2px;" @onclick="DisplayFirstFiveUsersOrderedByName">Show five users</button>
 
-    <button @onclick="DisplayUsersOrderedByName">Order by name</button>
+    <button class="btn btn-dark" style="margin: 2px;" @onclick="DisplayUsersOrderedByName">Order by name</button>
 
-    <button @onclick="DisplayUsersOrderedByID">Order by ID</button>
+    <button class="btn btn-dark" style="margin: 2px;" @onclick="DisplayUsersOrderedByID">Order by ID</button>
 
-    <button @onclick="DisplayUsersOrderedByCompanyName">Order by company name</button>
+    <button class="btn btn-dark" style="margin: 2px;" @onclick="DisplayUsersOrderedByCompanyName">Order by company name</button>
 
-    <button @onclick="DisplayUsersOrderedByCity">Order by city</button>
+    <button class="btn btn-dark" style="margin: 2px;" @onclick="DisplayUsersOrderedByCity">Order by city</button>
 
-    <input @bind-value="SearchText" @bind-value:event="oninput" placeholder="Search user name"/>
+    <br /><input @bind-value="SearchText" style="margin: 3px;" @bind-value:event="oninput" placeholder="Search user name"/>
 
     @if (SearchText != String.Empty)
     {
         DisplayUserNameFilteredBySearch(SearchText);
-    } 
+    }
 
     <table class="table">
         <thead>
